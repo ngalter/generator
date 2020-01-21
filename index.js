@@ -193,7 +193,7 @@ function generateHTML(data) {
 function getHTML() {
   return `<body>
   <div class="container">
-    <div class="main">
+  <main>
       <div class="row wrapper">
         <div class="col photo-header card">
            <h2>Hi!<br></h2>
@@ -202,23 +202,29 @@ function getHTML() {
            <h6>LOCATION GITHUB BLOG<br></h6>
           </div>
       </div>
-    <div class="row main">
-    <div class="col">
-      <h4>I build things and teach people to code.</h4>
-    </div>
-  </div>
-  <div class="row main">
-    <div class="col">
-      <div class="card"><h4>Public Repositories<br>XX</h4></div>
-        <div class="card"><h4>GitHub Stars<br>XX</h4></div>
-         </div>            
-         <div class="col main">
-         <div class="card"><h4>Followers<br>XX</h4></div>
-         <div class="card"><h4>Following<br>XX</h4></div>
-         </div>
-        </div>
+          <div class="row main">
+             <div class="col">
+                <h4>I build things and teach people to code.</h4>
+             </div>
+          </div>
+          <div class="row main">
+              <div class="col">
+                   <div class="card"><h4>Public Repositories<br>XX</h4></div>
+                   <div class="card"><h4>GitHub Stars<br>XX</h4></div>
+              </div>            
+               <div class="col main">
+                   <div class="card"><h4>Followers<br>XX</h4></div>
+                   <div class="card"><h4>Following<br>XX</h4></div>
+              </div>
+          </div>
+          <div class="row wrapper">
+            <div class="col">
+            </div>
+          </div>
       </div>
+      </main>
     </div>
+
   </body>
 </html>`
 }

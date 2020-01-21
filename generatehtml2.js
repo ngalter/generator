@@ -1,22 +1,4 @@
-const questions = require("inquirer");
-const fs = require('fs');
-const fetch = require("node-fetch");
-var avatar = "";
-let userName = "";
-let company = "";
-let githubHtml = "";
-let followers = "";
-let following = "";
-let stars = "";
-let location = "";
-let repos = "";
-let bio = "";
-let url = "";
-let myresult = "";
-
-const client_id = "Iv1.9561c002c95d538a";
-const client_secret = "5bcfbdab20337ef166ce315369616a6e2fab508a";
-
+const generateHTML = require('./generatehtml');
 const colors = {
   green: {
     wrapperBackground: "#E6E1C3",
@@ -43,7 +25,6 @@ const colors = {
     photoBorderColor: "white"
   }
 };
-
 function generateHTML(data) {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -128,6 +109,7 @@ function generateHTML(data) {
          border: 6px solid ${colors[data.color].photoBorderColor};
          box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
          }
+         .photo-header h1, .photo-header h2 {
          width: 100%;
          text-align: center;
          }
@@ -189,107 +171,4 @@ function generateHTML(data) {
           } 
          }
       </style>`
-}
-function getHTML() {
-  return `<body>
-  <div class="container">
-    <div class="main">
-      <div class="row wrapper">
-        <div class="col photo-header card">
-           <h2>Hi!<br></h2>
-           <h3>My name is NANCY ALTER!<br></h3>
-           <h4>Currently @ JOB<br></h4>
-           <h6>LOCATION GITHUB BLOG<br></h6>
-          </div>
-      </div>
-    <div class="row main">
-    <div class="col">
-      <h4>I build things and teach people to code.</h4>
-    </div>
-  </div>
-  <div class="row main">
-    <div class="col">
-      <div class="card"><h4>Public Repositories<br>XX</h4></div>
-        <div class="card"><h4>GitHub Stars<br>XX</h4></div>
-         </div>            
-         <div class="col main">
-         <div class="card"><h4>Followers<br>XX</h4></div>
-         <div class="card"><h4>Following<br>XX</h4></div>
-         </div>
-        </div>
-      </div>
-    </div>
-  </body>
-</html>`
-}
-async function getUser(user) {
-  const response = await fetch(`https://api.github.com/users/${user}?client_id=${client_id}&client_secret=${client_secret}`)
-  const result = await response.json()
- 
-  // console.log(result);
-  avatar = result.avatar_url;
-  userName = result.name;
-  company = result.company;
-  location = result.location;
-  githubHtml = result.html_url;
-  followers = result.followers;
-  following = result.following;
-  stars = result.starred_url;
-  repos = result.public_repos;
-  url = result.html_url;
-  bio = result.bio;
-  return `<body>
-  <div class="wrapper">
-  <h1>Hi!</h1>
-  <h2>My name is ${result.name}!</h2>
-  </div>
-  </body>
-  </html>`
-}
-
-questions.prompt([
-  {
-    type: "input",
-    name: "name",
-    message: "What is your GitHub User Name?"
-  },
-  {
-    type: "checkbox",
-    message: "What is your favorite color?",
-    name: "color",
-    choices: [
-      "red",
-      "pink",
-      "blue",
-      "green"
-    ]
-  }
-]).then(function(data) {
-
-var filename = data.name.toLowerCase().split(' ').join('') + ".json";
-
-  fs.writeFile(filename, JSON.stringify(data, null, '\t'), function (err) {
-
-    if (err) {
-      return console.log(err);
-    }
-    console.log("Success!");
-    console.log(data.name);
-    console.log(data.color);
-    getUser(data.name);
-
-  fs.writeFile(data.name + ".html", generateHTML(data), function (err) {
-    if (err) throw err;
-    console.log('Saved!');
-  });
-  fs.appendFile(data.name + ".html", getHTML() + "\r\n", function (err) {
-    if (err) throw err;
-    console.log('Appended!');
-  });
-  // fs.appendFile(data.name + ".html", getUser(data.name) + "\r\n", function (err) {
-  //   if (err) throw err;
-  //   console.log('Appended!');
-  // });
-
-});
-});
+        }

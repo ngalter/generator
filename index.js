@@ -1,19 +1,25 @@
 const questions = require("inquirer");
 const fs = require('fs');
 const fetch = require("node-fetch");
-var avatar = "";
-let userName = "";
-let company = "";
-let githubHtml = "";
-let followers = "";
-let following = "";
-let stars = "";
-let location = "";
-let repos = "";
-let bio = "";
-let url = "";
-let myresult = "";
+const Prince = require("prince")
+const util   = require("util")
 
+var userData = {
+  avatar: "nancy",
+  url: "nancy",
+  htmlUrl: "nancy",
+  stars: "nancy",
+  name: "nancy",
+  company: "nancy",
+  location: "nancy",
+  bio: "nancy",
+  repos: "nancy",
+  followers: "nancy",
+  following: "nancy"
+}
+var document = {
+  body: " "
+}
 const client_id = "Iv1.9561c002c95d538a";
 const client_secret = "5bcfbdab20337ef166ce315369616a6e2fab508a";
 
@@ -190,112 +196,112 @@ function generateHTML(data) {
          }
       </style>`
 }
-function getHTML() {
+
+const fetchUser = async (user) => {
+  const api_call = await fetch(`https://api.github.com/users/${user}?client_id=${client_id}&client_secret=${client_secret}`);
+  const data = await api_call.json();
+  return {data};
+};
+const getGitData = (user) => {
+  fetchUser(user).then((res) => {
+    userData.name = res.data.name;
+    console.log(res);
+    console.log(userData.name);
+  })
+  return userData.name;
+};
+
+function generateMoreHTML() {
   return `<body>
-  <div class="container">
-  <main>
+  
+   <div class="container">
+   <main>
       <div class="row wrapper">
         <div class="col photo-header card">
-           <h2>Hi!<br></h2>
-           <h3>My name is NANCY ALTER!<br></h3>
-           <h4>Currently @ JOB<br></h4>
-           <h6>LOCATION GITHUB BLOG<br></h6>
+          <div class="row">
+          <div class="col">
+             <h3>Hi!</h3>
+             <h4>My name is ${userData.name} !</h4>
+             <h4>Currently @ JOB</h4>
+             <h6>LOCATION GITHUB BLOG</h6>
           </div>
+          </div>         
+        </div>
       </div>
           <div class="row main">
              <div class="col">
-                <h4>I build things and teach people to code.</h4>
+                <h5>I build things and teach people to code.</h5>
              </div>
           </div>
           <div class="row main">
               <div class="col">
-                   <div class="card"><h4>Public Repositories<br>XX</h4></div>
-                   <div class="card"><h4>GitHub Stars<br>XX</h4></div>
+                   <div class="card"><h5>Public Repositories</h5><h6>XX</h6></div>
+                   <div class="card"><h5>GitHub Stars</h5><h6>XX</h6></div>
               </div>            
                <div class="col main">
-                   <div class="card"><h4>Followers<br>XX</h4></div>
-                   <div class="card"><h4>Following<br>XX</h4></div>
+                   <div class="card"><h5>Followers</h5><h6>XX</h6></div>
+                   <div class="card"><h5>Following</h5><h6>XX</h6></div>
               </div>
           </div>
           <div class="row wrapper">
             <div class="col">
             </div>
           </div>
+          
       </div>
       </main>
-    </div>
-
+      </div>
   </body>
 </html>`
-}
-async function getUser(user) {
-  const response = await fetch(`https://api.github.com/users/${user}?client_id=${client_id}&client_secret=${client_secret}`)
-  const result = await response.json()
- 
-  // console.log(result);
-  avatar = result.avatar_url;
-  userName = result.name;
-  company = result.company;
-  location = result.location;
-  githubHtml = result.html_url;
-  followers = result.followers;
-  following = result.following;
-  stars = result.starred_url;
-  repos = result.public_repos;
-  url = result.html_url;
-  bio = result.bio;
-  return `<body>
-  <div class="wrapper">
-  <h1>Hi!</h1>
-  <h2>My name is ${result.name}!</h2>
-  </div>
-  </body>
-  </html>`
-}
+};
 
-questions.prompt([
-  {
-    type: "input",
-    name: "name",
-    message: "What is your GitHub User Name?"
-  },
-  {
-    type: "checkbox",
-    message: "What is your favorite color?",
-    name: "color",
-    choices: [
-      "red",
-      "pink",
-      "blue",
-      "green"
-    ]
-  }
-]).then(function(data) {
-
-var filename = data.name.toLowerCase().split(' ').join('') + ".json";
-
-  fs.writeFile(filename, JSON.stringify(data, null, '\t'), function (err) {
-
-    if (err) {
-      return console.log(err);
+  questions.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is your GitHub User Name?"
+    },
+    {
+      type: "checkbox",
+      message: "What is your favorite color?",
+      name: "color",
+      choices: [
+        "red",
+        "pink",
+        "blue",
+        "green"
+      ]
     }
-    console.log("Success!");
-    console.log(data.name);
-    console.log(data.color);
-    getUser(data.name);
+  ]).then(function (data) {
 
-  fs.writeFile(data.name + ".html", generateHTML(data), function (err) {
-    if (err) throw err;
-    console.log('Saved!');
-  });
-  fs.appendFile(data.name + ".html", getHTML() + "\r\n", function (err) {
-    if (err) throw err;
-    console.log('Appended!');
-  });
-  // fs.appendFile(data.name + ".html", getUser(data.name) + "\r\n", function (err) {
-  //   if (err) throw err;
-  //   console.log('Appended!');
-  // });
+    var filename = data.name.toLowerCase().split(' ').join('') + ".json";
 
-});
-});
+    fs.writeFile(filename, JSON.stringify(data, null, '\t'), function (err) {
+
+      if (err) {
+        return console.log(err);
+      }
+      console.log("Success!");
+      console.log(data.name);
+      console.log(data.color);
+
+      fs.writeFile(data.name + ".html", generateHTML(data), function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+      });
+      fs.appendFile(data.name + ".html", generateMoreHTML(getGitData(data.name)) + "\r\n", function (err) {
+        if (err) throw err;
+        console.log('Appended!');
+
+      });
+      Prince()
+    .inputs(data.name + ".html")
+    .output(data.name + ".pdf")
+    .execute()
+    .then(function () {
+        console.log("OK: done")
+    }, function (error) {
+        console.log("ERROR: ", util.inspect(error))
+    })
+    });
+  });

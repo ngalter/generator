@@ -1,0 +1,24 @@
+{
+  "name": "generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngalter/generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngalter/generator/issues"
+  },
+  "homepage": "https://github.com/ngalter/generator#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "jspdf": "^1.5.3"
+  }
+}

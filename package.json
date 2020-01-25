@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ngalter/generator#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "jspdf": "^1.5.3"
+    "jspdf": "^1.5.3",
+    "pdf-from": "^0.2.1"
   }
 }

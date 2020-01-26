@@ -25,7 +25,9 @@ const colors = {
   }
 };
 
-function generateHTML(data, res) {
+const generateHTML = (data, res) => {
+// function generateHTML(data, res) {
+  
   return `<!DOCTYPE html>
 <html lang="en">
    <head>
@@ -184,11 +186,15 @@ function generateHTML(data, res) {
                           <h3>Hi!</h3>
                           <h4>My name is ${res.data.name} !</h4>
                           <h6>Currently @ ${res.data.company}</h6>
-                          <p><i class="fas fa-location-arrow"></i>${res.data.location}&nbsp&nbsp;&nbsp; &nbsp;<i class="fab fa-github-alt"></i>GitHub&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-rss"></i> Blog</p>
+                          <div class="links-nav">
+                            <div class="nav-link"><i class="fas fa-location-arrow"></i><a href=https://www.google.com/maps/search/?api=1&${res.data.location}>${res.data.location}</a></div>
+                            <div class="nav-link"><i class="fab fa-github-alt"></i><a href=${res.data.html_url}> GitHub</a></div>
+                            <div class="nav-link"><i class="fas fa-rss"></i><a href=${res.data.blog}>  Blog</a></div>
+                          </div>
                     </div>
                 </div>
               </div>
-          <main> 
+          <main>
           <div class="row">
               <div class="col">
                  <h5>${res.data.bio}</h5>
@@ -196,7 +202,7 @@ function generateHTML(data, res) {
           </div>
           <div class="row">
             <div class="col">
-                <div class="card"><h5>Public Repositories</h5><h6>${res.data.public_repo}</h6>
+                <div class="card"><h5>Public Repositories</h5><h6>${res.data.public_repos}</h6>
                 </div>
                 <div class="card"><h5>GitHub Stars</h5><h6>${res.data.public_gists}<h6>
                 </div>
@@ -218,6 +224,6 @@ function generateHTML(data, res) {
     </body>
   </html>
 }`
-}
+};
 module.exports = generateHTML;
 

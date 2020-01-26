@@ -29,34 +29,31 @@ questions.prompt([
   const queryURL = `https://api.github.com/users/${data.name}?client_id=${client_id}&client_secret=${client_secret}`;
   axios.get(queryURL).then(function (res) {
     console.log(res);
+    
+    const datatxt = generateHTML(data, res);
 
-    // html page writefile not required for pdf ---
-    var filehtml = data.name.toLowerCase().split(' ').join('') + ".html";
-    fs.writeFile(filehtml, generateHTML(data, res),
-      function (err) {
-        if (err) {
-          throw err;
-        };
-        console.log("Saved HTML!");
+      var newData = datatxt.slice(0, -1);
 
-        var conversion = convertFactory({
-          converterPath: convertFactory.converters.PDF
-        });
-        
-        conversion({ html: generateHTML(data, res) }, function(err, result) {
+      var filehtml = data.name.toLowerCase().split(' ').join('') + ".html";
+      fs.writeFile(filehtml, newData,
+        function (err) {
           if (err) {
-            return console.error(err);
+            throw err;
           }
-        
-          console.log(result.numberOfPages);
-          console.log(result.logs);
-          result.stream.pipe(fs.createWriteStream("./" + data.name + ".pdf"));
-          conversion.kill();
+        })
+     console.log("Saved HTML!");
 
-        });
-
-        });
-
+      var conversion = convertFactory({
+        converterPath: convertFactory.converters.PDF
       });
-  });
 
+      conversion({ html: newData }, function (err, result) {
+        if (err) {
+          return console.error(err);
+        }
+        
+        result.stream.pipe(fs.createWriteStream("./" + data.name + ".pdf"));
+        conversion.kill();
+  });
+  });
+});

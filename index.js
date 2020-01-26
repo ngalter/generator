@@ -29,8 +29,8 @@ questions.prompt([
   const queryURL = `https://api.github.com/users/${data.name}?client_id=${client_id}&client_secret=${client_secret}`;
   axios.get(queryURL).then(function (res) {
     console.log(res);
-    
-    const datatxt = generateHTML(data, res);
+ 
+      const datatxt = generateHTML(data, res);
 
       var newData = datatxt.slice(0, -1);
 
@@ -41,7 +41,7 @@ questions.prompt([
             throw err;
           }
         })
-     console.log("Saved HTML!");
+      console.log("Saved HTML!");
 
       var conversion = convertFactory({
         converterPath: convertFactory.converters.PDF
@@ -54,6 +54,7 @@ questions.prompt([
         
         result.stream.pipe(fs.createWriteStream("./" + data.name + ".pdf"));
         conversion.kill();
+      });
+    });
   });
-  });
-});
+

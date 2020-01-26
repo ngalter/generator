@@ -187,7 +187,7 @@ const generateHTML = (data, res) => {
                           <h4>My name is ${res.data.name} !</h4>
                           <h6>Currently @ ${res.data.company}</h6>
                           <div class="links-nav">
-                            <div class="nav-link"><i class="fas fa-location-arrow"></i><a href=https://www.google.com/maps/search/?api=1&${res.data.location}>${res.data.location}</a></div>
+                            <div class="nav-link"><i class="fas fa-location-arrow"></i><a href='    https://maps.googleapis.com/maps/api/staticmap?center=${res.data.location}&zoom=14&size=800x800&key=AIzaSyC57clVfNj1nmL0CDYTyB2L58i8aOxz9yU'>${res.data.location}</a></div>
                             <div class="nav-link"><i class="fab fa-github-alt"></i><a href=${res.data.html_url}> GitHub</a></div>
                             <div class="nav-link"><i class="fas fa-rss"></i><a href=${res.data.blog}>  Blog</a></div>
                           </div>

@@ -172,21 +172,23 @@ function generateHTML(data, res) {
          }
       </style>
     <body>
-      <div class="container body">
+      <div class="container">
               <div class="row">
                 <div class="col wrapper">
                   <div class="col card">
                     <div class="photo-header card">
                           <img src=${res.data.avatar_url}></br>
                     </div>
+                    <div class="row">
+                    <div class="col card">
                           <h3>Hi!</h3>
                           <h4>My name is ${res.data.name} !</h4>
                           <h6>Currently @ ${res.data.company}</h6>
-                          <p><i class="fas fa-location-arrow"></i>${res.data.location}&nbsp&nbsp;&nbsp; &nbsp;<i class="fab fa-github-alt"></i>   GitHub&nbsp;&nbsp;&nbsp;nbsp;<iclass="fas fa-rss"></i> Blog</p>
-                  </div>
+                          <p><i class="fas fa-location-arrow"></i>${res.data.location}&nbsp&nbsp;&nbsp; &nbsp;<i class="fab fa-github-alt"></i>GitHub&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-rss"></i> Blog</p>
+                    </div>
                 </div>
               </div>
-           <main>
+          <main> 
           <div class="row">
               <div class="col">
                  <h5>${res.data.bio}</h5>
